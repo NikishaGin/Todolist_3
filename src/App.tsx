@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {Todolist} from "./Todolist";
+import {v1} from "uuid";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    let [ tasks1, setTasks1] = useState([
+        { id: v1(), title: "HTML&CSS", isDone: true},
+        { id: v1(), title: "JS", isDone: true},
+        { id: v1(), title: "ReactJS", isDone: false},
+        { id: v1(), title: "ReactJS", isDone: true},
+        { id: v1(), title: "ReactJS", isDone: false}
+    ])
+
+    const removeTasks = (removeID:string) => {
+         setTasks1(tasks1.filter((el)=>el.id !==removeID))
+    }
+
+    const addTasks = (title:string) => {
+        setTasks1([{ id: v1(), title: title, isDone: true},...tasks1])
+    }
+
+    const changeIsDone = (id: string,isDone: boolean)=> {
+        setTasks1(tasks1.map(el=>el.id===id ? {...el,isDone:isDone} :el))
+    }
+
+    return (
+        <div className="App">
+            <Todolist title={'What to learn'}
+                      tasks={tasks1}
+                      removeTasks = {removeTasks}
+                      addTasks = {addTasks}
+                      changeIsDone={changeIsDone}/>
+
+        </div>
+    );
 }
 
 export default App;
