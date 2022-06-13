@@ -1,4 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Button, TextField} from "@mui/material";
 
 type PropsAddTasksType = {
     callback:(title: string)=>void
@@ -32,12 +33,24 @@ export const AddTitleTasks = (props:PropsAddTasksType) => {
 
     return (
         <div>
-            <input value={title}
+{/*            <input value={title}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
                    className={error ? "error" : ""}
-            />
-            <button onClick={addTask}>+</button>
+            />*/}
+            <TextField
+                id="outlined-basic"
+                label="Outlined"
+                variant="outlined"
+                value={title}
+                size="small"
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
+                className={error ? "error" : ""}/>
+            {/*<button onClick={addTask}>+</button>*/}
+            <Button variant="contained"
+                    onClick={addTask} size="small"
+                    style={{maxWidth: '40px', maxHeight: '40px', minWidth: '40px', minHeight: '40px'}}>+</Button>
             {error && <div className="error-message">{error}</div>}
         </div>
     )
